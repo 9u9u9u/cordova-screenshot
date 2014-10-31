@@ -46,8 +46,8 @@ public class Screenshot extends CordovaPlugin {
 					try {
 						if(format.equals("png") || format.equals("jpg")){
 							view.setDrawingCacheEnabled(true);
+							view.buildDrawingCache(true);
 							Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-							view.setDrawingCacheEnabled(false);
 							File folder = new File(Environment.getExternalStorageDirectory(), "Pictures");
 							if (!folder.exists()) {
 								folder.mkdirs();
@@ -64,6 +64,7 @@ public class Screenshot extends CordovaPlugin {
 							}
 							JSONObject jsonRes = new JSONObject();
 							jsonRes.put("filePath",f.getAbsolutePath());
+							view.setDrawingCacheEnabled(false);
 				                        PluginResult result = new PluginResult(PluginResult.Status.OK, jsonRes);
 				                        callbackContext.sendPluginResult(result);
 						}else{
