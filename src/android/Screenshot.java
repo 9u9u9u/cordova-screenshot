@@ -47,7 +47,7 @@ public class Screenshot extends CordovaPlugin {
 					try {
 						if(format.equals("png") || format.equals("jpg")){
 							view.setDrawingCacheEnabled(true);
-							view.buildDrawingCache(true);
+							view.buildDrawingCache();
 							Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
 							view.setDrawingCacheEnabled(false);
 							/*
