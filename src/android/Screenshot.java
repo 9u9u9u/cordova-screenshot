@@ -22,6 +22,7 @@ import org.json.JSONException;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Canvas;
 import android.os.Environment;
 import android.util.Base64;
 import android.view.View;
@@ -47,7 +48,15 @@ public class Screenshot extends CordovaPlugin {
 						if(format.equals("png") || format.equals("jpg")){
 							view.setDrawingCacheEnabled(true);
 							view.buildDrawingCache(true);
-							Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+							//Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+							view.setDrawingCacheEnabled(false);
+							//
+							Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+							Canvas canvas = new Canvas(bitmap);
+							view.invalidate();
+							view.onDraw(canvas);
+							view.invalidate();
+							//
 							File folder = new File(Environment.getExternalStorageDirectory(), "Pictures");
 							if (!folder.exists()) {
 								folder.mkdirs();
@@ -64,7 +73,6 @@ public class Screenshot extends CordovaPlugin {
 							}
 							JSONObject jsonRes = new JSONObject();
 							jsonRes.put("filePath",f.getAbsolutePath());
-							view.setDrawingCacheEnabled(false);
 				                        PluginResult result = new PluginResult(PluginResult.Status.OK, jsonRes);
 				                        callbackContext.sendPluginResult(result);
 						}else{
