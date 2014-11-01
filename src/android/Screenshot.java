@@ -48,15 +48,15 @@ public class Screenshot extends CordovaPlugin {
 						if(format.equals("png") || format.equals("jpg")){
 							view.setDrawingCacheEnabled(true);
 							view.buildDrawingCache(true);
-							//Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+							Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
 							view.setDrawingCacheEnabled(false);
-							//
-							Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+							/*
+							Bitmap bitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
 							Canvas canvas = new Canvas(bitmap);
 							view.invalidate();
 							view.onDraw(canvas);
 							view.invalidate();
-							//
+							*/
 							File folder = new File(Environment.getExternalStorageDirectory(), "Pictures");
 							if (!folder.exists()) {
 								folder.mkdirs();
